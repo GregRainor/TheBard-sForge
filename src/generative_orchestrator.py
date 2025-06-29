@@ -92,7 +92,7 @@ class GenerativeOrchestrator:
                 sound_type = audio_config.get("type", "ambient")
                 
                 print(f"🎵 Generating audio for: '{prompt}'")
-                generated_file = self.audio_generator.generate_sound(prompt, duration, sound_type)
+                generated_file = self.audio_generator.generate_sound(prompt, duration)
                 
                 if generated_file:
                     return generated_file

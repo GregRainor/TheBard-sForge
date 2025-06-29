@@ -6,23 +6,20 @@ from typing import Optional, Dict, List, Any
 
 class NLPInterpreter:
     def __init__(self):
-        # Force GPU usage if available
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        print(f"NLP Interpreter using device: {self.device}")
-        
-        if self.device == "cuda":
-            print(f"GPU: {torch.cuda.get_device_name(0)}")
-            print(f"GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
+        # Force CPU for NLP to avoid RTX 5090 compatibility issues
+        self.device = "cpu"
+        print(f"🧠 NLP Interpreter using device: {self.device}")
         
         try:
             self.classifier = pipeline(
                 "zero-shot-classification",
                 model="facebook/bart-large-mnli",
-                device=0 if self.device == "cuda" else -1  # 0 for GPU, -1 for CPU
+                device=-1  # Force CPU for compatibility
             )
             print(f"✅ NLP model loaded successfully on {self.device.upper()}")
         except Exception as e:
-            print(f"Warning: Could not load NLP model: {e}")
+            print(f"⚠️ Could not load NLP model: {e}")
+            print("🔄 Using keyword-based classification fallback")
             self.classifier = None
     
     def _extract_keywords(self, text: str) -> List[str]:
@@ -58,7 +55,8 @@ class NLPInterpreter:
             if result['scores'][0] > 0.5:
                 return result['labels'][0]
         except Exception as e:
-            print(f"NLP classification error: {e}")
+            print(f"🧠 NLP classification error: {e}")
+            print("🔄 Falling back to keyword matching only")
         
         return None
     
