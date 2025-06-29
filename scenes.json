@@ -1,6 +1,10 @@
 {
   "tavern": {
-    "bed": "assets/sounds/tavern_ambiance.wav",
+    "bed": {
+      "file": "assets/sounds/tavern_ambiance.wav",
+      "volume": 0.7
+    },
+    "keywords": ["tavern", "inn", "pub", "bar", "alehouse", "cozy", "fireplace", "mugs", "laughter", "social", "crowded", "indoors"],
     "oneshots": [
       {
         "file": "assets/sounds/clinking_mugs.wav",
@@ -23,7 +27,11 @@
     ]
   },
   "forest": {
-    "bed": "assets/sounds/forest_ambiance.wav",
+    "bed": {
+      "file": "assets/sounds/forest_ambiance.wav",
+      "volume": 0.6
+    },
+    "keywords": ["forest", "woods", "trees", "nature", "wilderness", "outdoor", "wild", "dark", "mysterious", "owl", "twig"],
     "oneshots": [
       {
         "file": "assets/sounds/twig_snap.wav",

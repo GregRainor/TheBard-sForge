@@ -13,10 +13,28 @@ class Orchestrator:
         self.bed_channel = None
         self.last_update_time = time.time()
     
+    def _validate_scenes(self, scenes_data):
+        """Checks if all file paths in the scene data exist."""
+        is_valid = True
+        for scene_name, data in scenes_data.items():
+            bed_info = data.get("bed", {})
+            if "file" in bed_info and not os.path.exists(bed_info["file"]):
+                print(f"Validation Error: Bed file not found for scene '{scene_name}': {bed_info['file']}")
+                is_valid = False
+            
+            for oneshot in data.get("oneshots", []):
+                if "file" in oneshot and not os.path.exists(oneshot["file"]):
+                    print(f"Validation Error: Oneshot file not found for scene '{scene_name}': {oneshot['file']}")
+                    is_valid = False
+        return is_valid
+
     def load_scenes_from_file(self, filepath):
         try:
             with open(filepath, 'r') as f:
-                self.scenes = json.load(f)
+                scenes_data = json.load(f)
+            if not self._validate_scenes(scenes_data):
+                return False
+            self.scenes = scenes_data
             print(f"Loaded {len(self.scenes)} scenes from {filepath}")
             return True
         except FileNotFoundError:
@@ -39,13 +57,15 @@ class Orchestrator:
         self.active_scene_data = self.scenes[scene_name]
         
         # Play bed sound
-        bed_file = self.active_scene_data.get("bed")
-        if bed_file and os.path.exists(bed_file):
-            self.bed_channel = self.audio_engine.play_sound(bed_file, loop=True, volume=0.7)
+        bed_info = self.active_scene_data.get("bed")
+        if bed_info and "file" in bed_info:
+            bed_file = bed_info["file"]
+            bed_volume = bed_info.get("volume", 0.7)
+            self.bed_channel = self.audio_engine.play_sound(bed_file, loop=True, volume=bed_volume)
             print(f"Started scene: {scene_name}")
             return True
         else:
-            print(f"Warning: Bed sound file not found: {bed_file}")
+            print(f"Warning: Bed sound not configured for scene: {scene_name}")
             return False
     
     def update(self):
@@ -67,7 +87,7 @@ class Orchestrator:
             if random.random() < frame_probability:
                 # Play the one-shot
                 filepath = oneshot.get("file")
-                if filepath and os.path.exists(filepath):
+                if filepath: # Path already validated at load time
                     volume_min = oneshot.get("volume_min", 0.5)
                     volume_max = oneshot.get("volume_max", 1.0)
                     volume = random.uniform(volume_min, volume_max)
@@ -77,6 +97,12 @@ class Orchestrator:
     def get_available_scenes(self):
         return list(self.scenes.keys())
     
+    def get_scene_keywords(self):
+        """Returns a dictionary of scenes and their associated keywords."""
+        return {
+            scene: data.get("keywords", []) for scene, data in self.scenes.items()
+        }
+
     def stop_current_scene(self):
         self.audio_engine.stop_all_sounds()
         self.current_scene = None
