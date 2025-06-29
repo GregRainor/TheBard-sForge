@@ -1,42 +1,67 @@
 import sys
+import time
+import select
 from audio_engine import AudioEngine
+from orchestrator import Orchestrator
 
 if __name__ == "__main__":
-    print("RPG Ambiance - V0.1 Audio Engine")
+    print("RPG Ambiance - V0.2 Smart Orchestrator")
     print("Initializing audio engine...")
 
     audio_engine = AudioEngine()
+    orchestrator = Orchestrator(audio_engine)
 
-    print("Controls:")
-    print("  'c' - Play clinking mugs sound")
-    print("  'q' - Quit")
-    print("\nStarting tavern ambiance...")
-
-    # Play tavern ambiance on loop
-    tavern_channel = audio_engine.play_sound("assets/sounds/tavern_ambiance.wav", loop=True, volume=0.7)
-    if tavern_channel is None:
-        print("Fatal: Could not load tavern_ambiance.wav. Exiting.")
+    # Load scenes
+    if not orchestrator.load_scenes_from_file("scenes.json"):
+        print("Fatal: Could not load scenes.json. Exiting.")
         audio_engine.quit()
         sys.exit(1)
 
-    print("\nListening for input...")
+    print("Available scenes:", orchestrator.get_available_scenes())
+    print("Controls:")
+    print("  't' - Switch to tavern scene")
+    print("  'f' - Switch to forest scene") 
+    print("  's' - Stop current scene")
+    print("  'q' - Quit")
+
+    # Start with tavern scene
+    print("\nStarting tavern scene...")
+    if not orchestrator.play_scene("tavern"):
+        print("Warning: Could not start tavern scene")
+
+    print("\nOrchestrator running... (press Enter to see controls)")
 
     try:
         while True:
-            # Blocking input is fine for V0.1, will be replaced in V0.2
-            user_input = input("> ").lower().strip()
-
-            if user_input == 'c':
-                print("Playing clinking mugs...")
-                audio_engine.play_sound("assets/sounds/clinking_mugs.wav", volume=0.8)
-            elif user_input == 'q':
-                break # Exit loop for graceful shutdown
-            else:
-                print("Unknown command. Use 'c' for clinking mugs or 'q' to quit.")
+            # Update orchestrator for random one-shots
+            orchestrator.update()
+            
+            # Non-blocking input check            
+            if select.select([sys.stdin], [], [], 0.1)[0]:
+                user_input = input("> ").lower().strip()
+                
+                if user_input == 't':
+                    print("Switching to tavern scene...")
+                    orchestrator.play_scene("tavern")
+                elif user_input == 'f':
+                    print("Switching to forest scene...")
+                    orchestrator.play_scene("forest")
+                elif user_input == 's':
+                    print("Stopping current scene...")
+                    orchestrator.stop_current_scene()
+                elif user_input == 'q':
+                    break
+                elif user_input == '':
+                    print("Controls: 't'=tavern, 'f'=forest, 's'=stop, 'q'=quit")
+                else:
+                    print("Unknown command. Use 't', 'f', 's', or 'q'.")
+            
+            # Small sleep to prevent 100% CPU usage
+            time.sleep(0.1)
 
     except KeyboardInterrupt:
         print("\nInterrupted by user.")
     finally:
         print("Stopping all sounds and exiting...")
-        audio_engine.stop_all_sounds()
+        orchestrator.stop_current_scene()
         audio_engine.quit()

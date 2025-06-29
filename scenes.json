@@ -1,0 +1,42 @@
+{
+  "tavern": {
+    "bed": "assets/sounds/tavern_ambiance.wav",
+    "oneshots": [
+      {
+        "file": "assets/sounds/clinking_mugs.wav",
+        "prob_per_sec": 0.1,
+        "volume_min": 0.6,
+        "volume_max": 1.0
+      },
+      {
+        "file": "assets/sounds/footsteps_wood.wav",
+        "prob_per_sec": 0.05,
+        "volume_min": 0.4,
+        "volume_max": 0.8
+      },
+      {
+        "file": "assets/sounds/chair_creak.wav",
+        "prob_per_sec": 0.03,
+        "volume_min": 0.3,
+        "volume_max": 0.7
+      }
+    ]
+  },
+  "forest": {
+    "bed": "assets/sounds/forest_ambiance.wav",
+    "oneshots": [
+      {
+        "file": "assets/sounds/twig_snap.wav",
+        "prob_per_sec": 0.02,
+        "volume_min": 0.5,
+        "volume_max": 0.9
+      },
+      {
+        "file": "assets/sounds/owl_hoot.wav",
+        "prob_per_sec": 0.01,
+        "volume_min": 0.7,
+        "volume_max": 1.0
+      }
+    ]
+  }
+}
