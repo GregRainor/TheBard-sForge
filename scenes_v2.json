@@ -1,0 +1,195 @@
+{
+  "tavern": {
+    "bed": {
+      "file": "assets/sounds/tavern_ambiance.wav",
+      "prompt": "cozy tavern ambient background with distant conversations and warm atmosphere",
+      "volume": 0.7,
+      "duration": 30.0
+    },
+    "keywords": ["tavern", "inn", "pub", "bar", "alehouse", "cozy", "fireplace", "mugs", "laughter", "social", "crowded", "indoors"],
+    "oneshots": [
+      {
+        "file": "assets/sounds/clinking_mugs.wav",
+        "prompt": "ale mugs clinking together in tavern",
+        "prob_per_sec": 0.1,
+        "volume_min": 0.6,
+        "volume_max": 1.0,
+        "duration": 2.0,
+        "type": "tavern"
+      },
+      {
+        "file": "assets/sounds/footsteps_wood.wav", 
+        "prompt": "footsteps on wooden tavern floor",
+        "prob_per_sec": 0.05,
+        "volume_min": 0.4,
+        "volume_max": 0.8,
+        "duration": 1.5,
+        "type": "footsteps"
+      },
+      {
+        "file": "assets/sounds/chair_creak.wav",
+        "prompt": "wooden chair creaking in tavern",
+        "prob_per_sec": 0.03,
+        "volume_min": 0.3,
+        "volume_max": 0.7,
+        "duration": 1.0,
+        "type": "tavern"
+      },
+      {
+        "prompt": "crackling fireplace in cozy tavern",
+        "prob_per_sec": 0.02,
+        "volume_min": 0.4,
+        "volume_max": 0.6,
+        "duration": 3.0,
+        "type": "fire"
+      }
+    ]
+  },
+  "forest": {
+    "bed": {
+      "file": "assets/sounds/forest_ambiance.wav",
+      "prompt": "peaceful forest ambient background with gentle wind through trees",
+      "volume": 0.6,
+      "duration": 30.0
+    },
+    "keywords": ["forest", "woods", "trees", "nature", "wilderness", "outdoor", "wild", "dark", "mysterious", "owl", "twig"],
+    "oneshots": [
+      {
+        "file": "assets/sounds/twig_snap.wav",
+        "prompt": "twig snapping underfoot in forest",
+        "prob_per_sec": 0.02,
+        "volume_min": 0.5,
+        "volume_max": 0.9,
+        "duration": 0.5,
+        "type": "forest"
+      },
+      {
+        "file": "assets/sounds/owl_hoot.wav",
+        "prompt": "owl hooting in dark forest",
+        "prob_per_sec": 0.01,
+        "volume_min": 0.7,
+        "volume_max": 1.0,
+        "duration": 2.0,
+        "type": "forest"
+      },
+      {
+        "prompt": "gentle wind rustling through forest leaves",
+        "prob_per_sec": 0.03,
+        "volume_min": 0.3,
+        "volume_max": 0.6,
+        "duration": 4.0,
+        "type": "wind"
+      },
+      {
+        "prompt": "distant bird call in forest",
+        "prob_per_sec": 0.008,
+        "volume_min": 0.4,
+        "volume_max": 0.7,
+        "duration": 1.5,
+        "type": "forest"
+      }
+    ]
+  },
+  "dungeon": {
+    "bed": {
+      "prompt": "dark dungeon ambient background with dripping water and echoing silence",
+      "volume": 0.5,
+      "duration": 30.0
+    },
+    "keywords": ["dungeon", "cave", "underground", "dark", "damp", "stone", "echo", "dripping", "underground"],
+    "oneshots": [
+      {
+        "prompt": "water droplet echoing in dungeon",
+        "prob_per_sec": 0.04,
+        "volume_min": 0.3,
+        "volume_max": 0.7,
+        "duration": 1.0,
+        "type": "water"
+      },
+      {
+        "prompt": "footsteps echoing on stone floor",
+        "prob_per_sec": 0.02,
+        "volume_min": 0.5,
+        "volume_max": 0.8,
+        "duration": 1.5,
+        "type": "footsteps"
+      },
+      {
+        "prompt": "distant rumbling in dungeon depths",
+        "prob_per_sec": 0.005,
+        "volume_min": 0.2,
+        "volume_max": 0.5,
+        "duration": 4.0,
+        "type": "ambient"
+      }
+    ]
+  },
+  "battlefield": {
+    "bed": {
+      "prompt": "intense battlefield ambient background with distant clashing and war sounds",
+      "volume": 0.8,
+      "duration": 30.0
+    },
+    "keywords": ["battle", "war", "fight", "combat", "clash", "weapons", "armor", "chaos"],
+    "oneshots": [
+      {
+        "prompt": "metal clashing against metal in battle",
+        "prob_per_sec": 0.15,
+        "volume_min": 0.6,
+        "volume_max": 1.0,
+        "duration": 1.0,
+        "type": "combat"
+      },
+      {
+        "prompt": "war horn blowing in distance",
+        "prob_per_sec": 0.008,
+        "volume_min": 0.7,
+        "volume_max": 0.9,
+        "duration": 3.0,
+        "type": "horn"
+      },
+      {
+        "prompt": "heavy footsteps of armored soldier",
+        "prob_per_sec": 0.03,
+        "volume_min": 0.5,
+        "volume_max": 0.8,
+        "duration": 1.0,
+        "type": "footsteps"
+      }
+    ]
+  },
+  "magical_library": {
+    "bed": {
+      "prompt": "mystical magical library ambient with ethereal whispers and arcane energy",
+      "volume": 0.6,
+      "duration": 30.0
+    },
+    "keywords": ["library", "magic", "mystical", "books", "arcane", "spell", "wizard", "scholarly", "quiet"],
+    "oneshots": [
+      {
+        "prompt": "page turning in ancient magical tome",
+        "prob_per_sec": 0.06,
+        "volume_min": 0.3,
+        "volume_max": 0.6,
+        "duration": 1.0,
+        "type": "page"
+      },
+      {
+        "prompt": "magical sparkle and shimmer",
+        "prob_per_sec": 0.02,
+        "volume_min": 0.4,
+        "volume_max": 0.7,
+        "duration": 2.0,
+        "type": "magic"
+      },
+      {
+        "prompt": "distant whispered incantation",
+        "prob_per_sec": 0.01,
+        "volume_min": 0.2,
+        "volume_max": 0.5,
+        "duration": 3.0,
+        "type": "voice"
+      }
+    ]
+  }
+}

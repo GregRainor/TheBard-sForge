@@ -1,3 +1,10 @@
 pygame
 transformers>=4.21.0
-torch>=2.1.0
+torch>=2.7.0
+stable-audio-tools
+audiocraft
+scipy
+librosa
+soundfile
+diffusers>=0.21.0
+accelerate
